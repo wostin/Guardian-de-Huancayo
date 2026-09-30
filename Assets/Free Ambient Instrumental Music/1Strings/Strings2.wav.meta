@@ -1,0 +1,30 @@
+fileFormatVersion: 2
+guid: 603001d590a40ff468c947f3c96a4ced
+AssetOrigin:
+  serializedVersion: 1
+  productId: 180790
+  packageName: FREE Ambient Instrumental Music
+  packageVersion: 1.0
+  assetPath: Assets/Free Ambient Instrumental Music/1Strings/Strings2.wav
+  uploadId: 394751
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 8
+  defaultSettings:
+    serializedVersion: 2
+    loadType: 2
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 0.45
+    conversionMode: 0
+    preloadAudioData: 1
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  loadInBackground: 1
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
