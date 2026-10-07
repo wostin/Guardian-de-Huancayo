@@ -2263,3 +2263,13 @@ Thumbs.db
 !/Assets/YelScryptFireStudio/LowPolyRoadVehiclesFreePackage/Publisher/Publisher Window/Welcome Screen/Scripts/Editor.meta
 !/Assets/YelScryptFireStudio/LowPolyRoadVehiclesFreePackage/Publisher/Publisher Window/Welcome Screen/Scripts/Editor/PublisherWelcomeScreen.cs
 !/Assets/YelScryptFireStudio/LowPolyRoadVehiclesFreePackage/Publisher/Publisher Window/Welcome Screen/Scripts/Editor/PublisherWelcomeScreen.cs.meta
+
+# ---- Agregado 07-oct-2026: conversaciones, arreglos y animaciones de CityPeople ----
+!/Assets/Guardian/Scripts/GuardianConversacion.cs
+!/Assets/Guardian/Scripts/GuardianConversacion.cs.meta
+!/Assets/Guardian/Scripts/GuardianPiesAlSuelo.cs
+!/Assets/Guardian/Scripts/GuardianPiesAlSuelo.cs.meta
+!/Assets/Guardian/Editor/GuardianRepararAnimaciones.cs
+!/Assets/Guardian/Editor/GuardianRepararAnimaciones.cs.meta
+# Sin estas animaciones los personajes quedan hundidos / inclinados (pose por defecto)
+!/Assets/DenysAlmaral/CityPeople/Animations/**

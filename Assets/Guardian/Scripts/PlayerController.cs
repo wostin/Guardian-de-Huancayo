@@ -116,6 +116,11 @@ public class PlayerController : MonoBehaviour
         if (Camera.main != null) cam = Camera.main.transform;
 
         anim = GetComponentInChildren<Animator>();
+        // El Animator está en el mismo objeto que el CharacterController: con
+        // root motion la animación movía el transform por su cuenta, sin pasar
+        // por el CharacterController, y el Guardián se hundía media pierna en la
+        // vereda o la atravesaba. El movimiento lo hace SOLO cc.Move().
+        if (anim != null) anim.applyRootMotion = false;
         BuscarClips();
     }
 

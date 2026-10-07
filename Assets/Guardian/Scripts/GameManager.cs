@@ -256,9 +256,37 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
 
         ReposicionarJugador(CentroZona(zonaActual));
+        AlejarBasuraDelInicio();
 
         // Presentación de la zona: cada nivel enseña algo del problema real.
         Avisar(IntroZona(zonaActual), new Color(0.65f, 0.90f, 1f), 6.5f);
+    }
+
+    /// <summary>
+    /// El punto de aparición de la Plaza quedaba ENCIMA de un residuo: el
+    /// Guardián arrancaba con algo en la mochila sin haberlo recogido, y luego
+    /// al entregar "se iban dos". Cualquier residuo a menos de 2.5 m del inicio
+    /// se corre a 3.5 m, en la misma dirección en que estaba.
+    /// </summary>
+    private void AlejarBasuraDelInicio()
+    {
+        GameObject p = GameObject.FindGameObjectWithTag("Player");
+        if (p == null) return;
+        Vector3 inicio = p.transform.position;
+
+        for (int i = 0; i < todas.Count; i++)
+        {
+            TrashItem t = todas[i];
+            if (t == null || !t.gameObject.activeSelf) continue;
+            Vector3 d = t.transform.position - inicio; d.y = 0f;
+            if (d.magnitude >= 2.5f) continue;
+
+            Vector3 dir = d.sqrMagnitude > 0.01f ? d.normalized : p.transform.forward;
+            dir.y = 0f; if (dir.sqrMagnitude < 0.01f) dir = Vector3.forward;
+            Vector3 nueva = inicio + dir.normalized * 3.5f;
+            nueva.y = t.transform.position.y;
+            t.transform.position = nueva;
+        }
     }
 
     // Cada zona anuncia COMO se juega, no solo donde esta. Antes las tres decian
@@ -522,8 +550,19 @@ public class GameManager : MonoBehaviour
             contaminacion = Mathf.Max(0f, contaminacion - n * 7f);
 
             string extra = (multi > 1) ? "   RACHA x" + multi : "";
-            Avisar("✔ " + n + " de " + Residuo.Nombre(acepta) + " bien segregado   +" + ganado + extra,
-                   new Color(0.4f, 1f, 0.6f));
+            // Solo entra lo de ESTE color; lo demás sigue en la mochila y se dice
+            // a dónde va, para que no parezca que el tacho se lo llevó todo.
+            string quedan = "";
+            for (int k = 0; k < Residuo.TIPOS; k++)
+            {
+                TipoResiduo tt = Residuo.Desde(k);
+                int c = CuantosLlevo(tt);
+                if (c > 0) quedan += (quedan.Length > 0 ? ", " : "") + c + " " + Residuo.Nombre(tt).ToLower()
+                                     + " → " + Residuo.ColorNTP(tt);
+            }
+            Avisar("✔ " + n + " de " + Residuo.Nombre(acepta) + " bien segregado   +" + ganado + extra
+                   + (quedan.Length > 0 ? "   ·   Te queda: " + quedan : ""),
+                   new Color(0.4f, 1f, 0.6f), quedan.Length > 0 ? 4f : 2.6f);
 
             // El tono sube con la racha: se oye que vas bien sin mirar el HUD.
             float tono = Mathf.Min(1.0f + (racha - 1) * 0.06f, 1.55f);
