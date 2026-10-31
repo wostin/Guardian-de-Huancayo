@@ -309,7 +309,8 @@ public class GuardianLogros : MonoBehaviour
         {
             int n = Cantidad;
             if (GuardianUIExtra.Boton(GuardianUIExtra.RanuraMenu(1), "INSIGNIAS  " + n + " / " + Total,
-                                      Medalla(n > 0 ? UltimaGanada() : 4, n > 0)))
+                                      Medalla(n > 0 ? UltimaGanada() : 4, n > 0), false, 16, new Color(1f, 0.80f, 0.30f),
+                                      "Álbum de medallas del Guardián"))
                 AbrirAlbum();
         }
 
@@ -361,13 +362,12 @@ public class GuardianLogros : MonoBehaviour
             Rect rm = new Rect(celda.x + 6f + (82f - lado) / 2f, celda.y + 8f + (82f - lado) / 2f, lado, lado);
             GUI.DrawTexture(rm, Medalla(i, ganada));
             if (!ganada) GUI.DrawTexture(new Rect(rm.xMax - 30f, rm.yMax - 30f, 28f, 28f), GuardianIconos.Candado());
+            else GUI.DrawTexture(new Rect(rm.xMax - 26f, rm.yMax - 28f, 24f, 24f), GuardianIconos.Check());
 
             GUI.Label(new Rect(celda.x + 94f, celda.y + 10f, celda.width - 98f, 44f), Titulo(i),
                       GuardianUIExtra.Txt(14, FontStyle.Bold, ganada ? Color.white : new Color(0.62f, 0.66f, 0.72f), TextAnchor.UpperLeft, true));
             GUI.Label(new Rect(celda.x + 94f, celda.y + 54f, celda.width - 98f, 44f), Como(i),
                       GuardianUIExtra.Txt(12, FontStyle.Normal, ganada ? new Color(0.70f, 0.90f, 0.75f) : new Color(0.55f, 0.60f, 0.66f), TextAnchor.UpperLeft, true));
-            if (ganada)
-                GUI.DrawTexture(new Rect(celda.xMax - 24f, celda.y + 6f, 18f, 18f), GuardianIconos.Check());
         }
 
         if (GuardianUIExtra.Boton(new Rect(card.x + card.width / 2f - 110f, card.yMax - 62f, 220f, 46f), "◀  VOLVER"))

@@ -96,7 +96,7 @@ public static class GuardianUIExtra
     /// ícono opcional a la izquierda. Devuelve true al hacer clic (o tocar).
     /// </summary>
     public static bool Boton(Rect r, string texto, Texture icono = null, bool resaltado = false,
-                             int tamLetra = 15, Color? acento = null)
+                             int tamLetra = 15, Color? acento = null, string subtitulo = null)
     {
         Color ac = acento ?? new Color(0.30f, 0.85f, 0.55f);
         bool encima = r.Contains(Event.current.mousePosition);
@@ -116,7 +116,19 @@ public static class GuardianUIExtra
         }
         TextAnchor ancla = icono != null ? TextAnchor.MiddleLeft : TextAnchor.MiddleCenter;
         Rect rt = icono != null ? new Rect(x, r.y, r.xMax - x - 8f, r.height) : r;
-        GUI.Label(rt, texto, Txt(tamLetra, FontStyle.Bold, Color.white, ancla));
+        if (string.IsNullOrEmpty(subtitulo))
+        {
+            GUI.Label(rt, texto, Txt(tamLetra, FontStyle.Bold, Color.white, ancla));
+        }
+        else
+        {
+            // Título arriba y una línea corta debajo (botones del menú principal).
+            TextAnchor arriba = icono != null ? TextAnchor.LowerLeft : TextAnchor.LowerCenter;
+            TextAnchor abajo = icono != null ? TextAnchor.UpperLeft : TextAnchor.UpperCenter;
+            GUI.Label(new Rect(rt.x, rt.y, rt.width, rt.height * 0.56f), texto, Txt(tamLetra, FontStyle.Bold, Color.white, arriba));
+            GUI.Label(new Rect(rt.x, rt.y + rt.height * 0.54f, rt.width, rt.height * 0.46f), subtitulo,
+                      Txt(Mathf.Max(10, tamLetra - 4), FontStyle.Normal, new Color(0.78f, 0.84f, 0.90f), abajo));
+        }
 
         return GUI.Button(r, GUIContent.none, GUIStyle.none);
     }
@@ -174,8 +186,8 @@ public static class GuardianUIExtra
     /// </summary>
     public static Rect RanuraMenu(int i)
     {
-        float w = 262f, h = 46f;
-        return new Rect(18f, SH - 64f - i * (h + 10f), w, h);
+        float w = 268f, h = 50f;
+        return new Rect(18f, SH - 66f - i * (h + 10f), w, h);
     }
 
     /// <summary>¿Se puede dibujar algo nuevo encima del menú principal?</summary>

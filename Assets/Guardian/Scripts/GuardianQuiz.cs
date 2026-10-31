@@ -166,9 +166,9 @@ public class GuardianQuiz : MonoBehaviour
             if (GuardianUIExtra.EnMenuPrincipal() && !GuardianUIExtra.HayModal)
             {
                 int mejor = PlayerPrefs.GetInt(K_MEJOR, 0);
-                string txt = "RETO NTP  ·  ¿a qué tacho va?" + (mejor > 0 ? "   (" + mejor + "/10)" : "");
-                if (GuardianUIExtra.Boton(GuardianUIExtra.RanuraMenu(0), txt, GuardianIconos.Objeto(9), false, 14,
-                                          new Color(0.98f, 0.72f, 0.20f)))
+                string sub = "¿A qué tacho va?" + (mejor > 0 ? "   ·   mejor " + mejor + "/10" : "");
+                if (GuardianUIExtra.Boton(GuardianUIExtra.RanuraMenu(0), "RETO NTP", GuardianIconos.Objeto(9), false, 16,
+                                          new Color(0.98f, 0.72f, 0.20f), sub))
                     Abrir();
             }
             return;
@@ -366,7 +366,7 @@ public class GuardianQuiz : MonoBehaviour
             float x = card.x + card.width / 2f - 150f + i * 110f + (96f - s) / 2f;
             float y = card.y + 70f + (i == 1 ? 0f : 16f);
             Color antes = GUI.color;
-            GUI.color = i < estrellas ? Color.white : new Color(1f, 1f, 1f, 0.25f);
+            GUI.color = i < estrellas ? Color.white : new Color(1f, 1f, 1f, 0.6f);
             GUI.DrawTexture(new Rect(x, y, s, s), GuardianIconos.Insignia(GuardianLogros.PERFECTA, new Color(0.85f, 0.62f, 0.12f), i < estrellas));
             GUI.color = antes;
         }
@@ -389,7 +389,7 @@ public class GuardianQuiz : MonoBehaviour
         }
 
         string leccion = perfecto ? "Segregar en la fuente es el primer paso para que el Shullcas vuelva a ser cristalino."
-                       : aciertos >= 7 ? "Casi perfecto: repasa los que fallaste (abajo a la izquierda de cada uno está su tacho)."
+                       : aciertos >= 7 ? "Casi perfecto: repasa los que fallaste (arriba a la izquierda de cada uno está su tacho)."
                        : "Tip: en el juego, la tabla de colores de la NTP está siempre arriba a la derecha.";
         GUI.Label(new Rect(card.x + 40f, card.y + 372f, card.width - 80f, 46f), leccion,
                   GuardianUIExtra.Txt(15, FontStyle.Normal, new Color(0.72f, 0.86f, 0.96f), TextAnchor.MiddleCenter, true));

@@ -825,6 +825,23 @@ public static class GuardianIconos
         });
     }
 
+    /// <summary>Engranaje (botón de Opciones).</summary>
+    public static Texture2D Engranaje()
+    {
+        return Desde("engranaje", () =>
+        {
+            Lienzo l = new Lienzo(64);
+            Color c = new Color(0.80f, 0.86f, 0.94f);
+            l.Borde(0.045f, new Color(0f, 0f, 0f, 0.55f));
+            for (int i = 0; i < 8; i++)
+                l.Caja(0.5f, 0.5f, 0.07f, 0.44f, 0.02f, c, i * 22.5f);
+            l.Circulo(0.5f, 0.5f, 0.33f, c);
+            l.SinBorde();
+            l.Circulo(0.5f, 0.5f, 0.14f, new Color(0.14f, 0.18f, 0.24f));
+            return l.Textura("Engranaje");
+        });
+    }
+
     /// <summary>Candado (insignias bloqueadas).</summary>
     public static Texture2D Candado()
     {

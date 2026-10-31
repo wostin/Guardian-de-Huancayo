@@ -186,13 +186,13 @@ public class GuardianOpciones : MonoBehaviour
         {
             if (GuardianUIExtra.EnMenuPrincipal())
             {
-                if (GuardianUIExtra.Boton(GuardianUIExtra.RanuraMenu(2), "OPCIONES  ·  sonido, brillo, accesibilidad",
-                                          GuardianIconos.Pictograma(TipoResiduo.Papel), false, 13, new Color(0.45f, 0.70f, 1f)))
+                if (GuardianUIExtra.Boton(GuardianUIExtra.RanuraMenu(2), "OPCIONES", GuardianIconos.Engranaje(), false, 16,
+                                          new Color(0.45f, 0.70f, 1f), "Sonido, brillo y accesibilidad"))
                     Abrir();
             }
             else if (gm.pausado)
             {
-                if (GuardianUIExtra.Boton(new Rect(18f, 18f, 230f, 46f), "OPCIONES", GuardianIconos.Pictograma(TipoResiduo.Papel),
+                if (GuardianUIExtra.Boton(new Rect(18f, 18f, 230f, 46f), "OPCIONES", GuardianIconos.Engranaje(),
                                           false, 15, new Color(0.45f, 0.70f, 1f)))
                     Abrir();
             }
