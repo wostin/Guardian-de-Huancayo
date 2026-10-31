@@ -649,6 +649,7 @@ public class GameManager : MonoBehaviour
     {
         if (estado != Estado.Jugando || t == null) return;
 
+        GuardianEventos.AvisarVecino(t.transform.position);
         t.gameObject.SetActive(false);
         if (t.deReserva && extras > 0)
         {

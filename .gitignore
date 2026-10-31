@@ -2273,3 +2273,7 @@ Thumbs.db
 !/Assets/Guardian/Editor/GuardianRepararAnimaciones.cs.meta
 # Sin estas animaciones los personajes quedan hundidos / inclinados (pose por defecto)
 !/Assets/DenysAlmaral/CityPeople/Animations/**
+
+# ---- Todo el código propio del juego se sube siempre (scripts nuevos incluidos) ----
+!/Assets/Guardian/Scripts/*.cs
+!/Assets/Guardian/Scripts/*.cs.meta

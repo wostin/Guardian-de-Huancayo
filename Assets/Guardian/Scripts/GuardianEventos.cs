@@ -24,6 +24,8 @@ public static class GuardianEventos
     public static event Action<bool> FinNivel;
     /// <summary>Mochila llena al intentar recoger.</summary>
     public static event Action<Vector3> MochilaLlena;
+    /// <summary>El Guardián alcanzó a un vecino y este recogió lo que había botado (posición).</summary>
+    public static event Action<Vector3> VecinoAlcanzado;
 
     public static void AvisarRecogio(Vector3 p, TipoResiduo t)            { Recogio?.Invoke(p, t); }
     public static void AvisarDeposito(Vector3 p, TipoResiduo t, int n, int pts) { Deposito?.Invoke(p, t, n, pts); }
@@ -31,11 +33,13 @@ public static class GuardianEventos
     public static void AvisarGolpe(Vector3 p)                             { Golpe?.Invoke(p); }
     public static void AvisarFin(bool gano)                               { FinNivel?.Invoke(gano); }
     public static void AvisarMochilaLlena(Vector3 p)                      { MochilaLlena?.Invoke(p); }
+    public static void AvisarVecino(Vector3 p)                            { VecinoAlcanzado?.Invoke(p); }
 
     /// <summary>Limpia suscriptores al entrar a Play (Enter Play Mode sin recargar dominio).</summary>
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void Limpiar()
     {
         Recogio = null; Deposito = null; Error = null; Golpe = null; FinNivel = null; MochilaLlena = null;
+        VecinoAlcanzado = null;
     }
 }
