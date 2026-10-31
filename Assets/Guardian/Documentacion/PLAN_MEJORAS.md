@@ -438,3 +438,66 @@ Recompilado con todo lo de las últimas rondas. **575 MB** la carpeta,
 **263 MB** el ZIP de entrega (`GuardianDeHuancayo_Entrega.zip`, al lado de
 `Assets/`). Cuatro minutos y medio de compilación, casi todo en variantes de
 shader de URP.
+
+---
+
+## Ronda del 31/10 — más imágenes, menos texto: Insignias, Reto NTP, Opciones y Misiones
+
+El profesor pidió **menos texto y más imágenes**. Esta ronda agrega cuatro sistemas que
+se ven casi solo con dibujos, todos generados por código y sin tocar la escena: se crean
+solos al dar Play (`RuntimeInitializeOnLoadMethod`), igual que el resto de los sistemas.
+
+### 1. Fábrica de íconos (`GuardianIconos.cs`)
+Un "lienzo" que pinta figuras con **bordes suaves** usando funciones de distancia con
+signo (SDF): círculos, anillos, elipses, cajas redondeadas, trazos, polígonos y
+estrellas, con contorno estilo caricatura. Con eso se dibujan:
+- **16 medallas** de insignias (cinta roja y blanca, aro dorado, figura blanca).
+- Los **5 pictogramas de la NTP** (botella PET, botella de vidrio, periódico, lata, manzana).
+- Los **5 contenedores** del color de la norma con su placa.
+- **15 residuos de la vida diaria** a color para el Reto NTP.
+Se dibuja una sola vez y queda en caché. Los paneles redondeados son una textura
+blanca por radio que se tiñe con `GUI.color`, así nada crea texturas cuadro a cuadro.
+
+### 2. Insignias (`GuardianLogros.cs`)
+16 logros que premian lo que el juego enseña: primer residuo, 10 y 100 bien
+segregados, rachas de 5 y 12, segregación perfecta, Plaza / Mercado / Shullcas
+limpios, los 5 colores, alcanzar a un vecino que botó basura, conversar con 5
+personas, usar la bicicleta, ganar una zona con tráfico sin golpes, derrotar al Rey
+Basurón y 10/10 en el Reto NTP. Al ganar una baja una tarjeta con la **medalla**;
+en el menú, **INSIGNIAS** abre el álbum (las que faltan en gris con candado y la pista).
+Escucha `GuardianEventos` (Observer): no toca el puntaje. Se agregó el evento
+`VecinoAlcanzado`, que avisa `GameManager.VecinoRecogeLoSuyo`.
+
+### 3. Reto NTP (`GuardianQuiz.cs`)
+Minijuego de 10 preguntas desde el menú: el **dibujo** del residuo y los **5
+contenedores** como botones (clic, toque o teclas 1–5). Siempre salen 2 residuos de
+cada color. Barra de 9 s, puntos por rapidez, el contenedor correcto se ilumina y una
+frase corta dice **por qué** (`Residuo.Clave`). Final con estrellas, repaso visual de
+la ronda (cada residuo con ✔/✖ y su tacho), récord, y la insignia *MAESTRO DE LA NTP*.
+
+### 4. Opciones (`GuardianOpciones.cs`) — los Toggle y Slider de la guía de UI
+- **Música ON/OFF** y **volumen de música** → bus Música del mezclador.
+- **Efectos** → bus Efectos 3D.
+- **Brillo** → un Volume global propio (prioridad 50) que sobrescribe **solo**
+  `postExposure` (0.25 + log2 del brillo). Si sobrescribiera todo el `ColorAdjustments`,
+  se perdería la saturación que baja con la contaminación.
+- **Sensibilidad del mouse** e **invertir eje vertical** → campos públicos de la cámara.
+- **Modo daltónico**: el juego se basa en distinguir 5 colores (≈8 % de los varones
+  confunde verde/marrón o rojo). Con el modo activo, cada contenedor muestra su
+  pictograma + color + material, y cada residuo cercano su pictograma.
+Se abre desde el menú y desde la pausa; todo se guarda en `PlayerPrefs`.
+
+### 5. Misiones de la zona (`GuardianMisiones.cs`)
+Dos metas cortas con ícono debajo del HUD, distintas en cada zona: segregar N del
+color que más abunda, racha de 4, **conversar con un vecino** (siempre en la Plaza:
+enseña a usar los diálogos), 3 residuos en 25 s, pedalear en bicicleta y limpiar sin
+golpes (solo con tráfico). Al cumplirse suman puntos con `GameManager.SumarPuntos`.
+La presentación automática de la zona no cuenta como conversación.
+
+### Cómo se verificó sin abrir Unity
+- Los scripts nuevos y los modificados (`GameManager`, `GuardianEventos`, `Residuo`,
+  `TrashItem`, `RecycleBin`) se compilaron con Roslyn (C# 9, el de Unity 6) contra
+  firmas de la API de Unity 6000.5, con `ENABLE_INPUT_SYSTEM` definido.
+- Los íconos se renderizaron fuera de Unity con el mismo código y se revisaron a ojo.
+- El teclado de las ventanas nuevas se lee con eventos de IMGUI (`Event.current`), que
+  funcionan con el Input System y con el sistema antiguo.

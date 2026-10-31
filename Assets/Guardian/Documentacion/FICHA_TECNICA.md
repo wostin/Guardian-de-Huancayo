@@ -119,6 +119,12 @@ informe como evidencia de las pruebas realizadas.
 | `SeguridadVial.cs` | Penaliza quedarse en la pista con el semáforo en verde para los autos |
 | `AnimarCaminar.cs` | Deja la animación de caminata puesta (el reciclador que empuja el triciclo) |
 | `RoadNetwork.cs` | Red de vías leída de la ciudad |
+| `GuardianIconos.cs` | Íconos dibujados por código (SDF): medallas, pictogramas NTP, contenedores y residuos |
+| `GuardianUIExtra.cs` | Escala, paneles y botones de las ventanas nuevas; una ventana abierta a la vez |
+| `GuardianLogros.cs` | 16 insignias con medalla, aviso al ganarlas y álbum en el menú |
+| `GuardianQuiz.cs` | Reto NTP: 10 preguntas con imágenes de residuos y los 5 contenedores |
+| `GuardianOpciones.cs` | Opciones: música, efectos, brillo, mouse y modo daltónico |
+| `GuardianMisiones.cs` | Dos misiones con ícono por zona, con puntos extra |
 
 ### Herramienta de editor (`Assets/Guardian/Editor/GuardianSetupEditor.cs`)
 

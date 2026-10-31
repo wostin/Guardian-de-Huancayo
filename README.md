@@ -43,6 +43,17 @@ La ciudad se llena de basura y el río Shullcas se contamina. El **Guardián** r
 | F8 | — | Flujo de señal de audio |
 | ESC / P | II | Pausa y mezclador |
 
+## Menú principal: Reto NTP, Insignias y Opciones
+Abajo a la izquierda del menú hay tres botones nuevos (todo dibujado por código, sin imágenes descargadas):
+
+| Botón | Qué es |
+|---|---|
+| **RETO NTP** | Minijuego de 10 preguntas: aparece el dibujo de un residuo (botella, lata, periódico, cáscara…) y se toca su contenedor. Barra de tiempo, explicación corta al responder, estrellas y récord. |
+| **INSIGNIAS** | Álbum de 16 medallas: rachas, segregación perfecta, las tres zonas, los 5 colores, alcanzar a un vecino, conversar, usar la bici, cruzar sin golpes, derrotar al Rey Basurón… |
+| **OPCIONES** | Música ON/OFF, volumen de música y efectos, brillo, sensibilidad del mouse, invertir eje vertical y **modo daltónico** (pictograma y nombre sobre cada contenedor y residuo). También desde la pausa. |
+
+Durante el juego, cada zona trae **2 misiones** con ícono (ej. *Segrega 3 de VIDRIO*, *Conversa con un vecino*, *Limpia sin golpes*) que dan puntos extra.
+
 ## Sistemas técnicos
 - Cámaras en 1ª persona, aérea y 3ª persona, con sacudida y FOV dinámico.
 - Flechas guía 3D hacia la basura, el contenedor y el punto de acopio.
@@ -52,6 +63,7 @@ La ciudad se llena de basura y el río Shullcas se contamina. El **Guardián** r
 - Flujo de señal de audio por buses (Música, Ambiente, Efectos 3D, Interfaz) → Master, con *ducking* y pasa-bajos en pausa.
 - Controles táctiles para celular (versión Web).
 - Eventos de gameplay con patrón Observer (`GuardianEventos`).
+- Íconos, medallas y pictogramas generados en tiempo de ejecución con funciones de distancia (SDF) en `GuardianIconos`.
 
 ## Qué hay en este repositorio
 Solo lo que el juego necesita para abrir y jugar:

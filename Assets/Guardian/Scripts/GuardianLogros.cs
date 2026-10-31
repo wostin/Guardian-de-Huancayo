@@ -143,6 +143,7 @@ public class GuardianLogros : MonoBehaviour
 
     private int golpesNivel;
     private bool estabaJugando;
+    private float tiempoAntes;
     private bool hablandoAntes;
 
     private void AlRecoger(Vector3 p, TipoResiduo t) { Desbloquear(PRIMER_RESIDUO); }
@@ -191,8 +192,10 @@ public class GuardianLogros : MonoBehaviour
         if (gm == null) return;
 
         bool jugando = gm.estado == GameManager.Estado.Jugando;
-        if (jugando && !estabaJugando) golpesNivel = 0;       // empezó (o se reinició) un nivel
+        // Empezó (o se reinició, incluso desde la pausa) un nivel: el reloj se vuelve a llenar.
+        if (jugando && (!estabaJugando || gm.tiempoRestante > tiempoAntes + 1f)) golpesNivel = 0;
         estabaJugando = jugando;
+        tiempoAntes = gm.tiempoRestante;
         if (!jugando || gm.modoRecorrido) { hablandoAntes = GuardianConversacion.Hablando; return; }
 
         // Conversaciones: cada vez que se abre un diálogo nuevo cuenta una.
