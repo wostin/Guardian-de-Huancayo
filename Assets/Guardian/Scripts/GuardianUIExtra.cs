@@ -53,7 +53,7 @@ public static class GuardianUIExtra
     public static void Cerrar(string quien) { if (Modal == quien) Modal = ""; }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    private static void Reiniciar() { Modal = ""; }
+    private static void Reiniciar() { Modal = ""; estilosPanel.Clear(); }
 
     // ------------------------------------------------------------ estilos
 
@@ -69,14 +69,26 @@ public static class GuardianUIExtra
         return s;
     }
 
+    private static readonly System.Collections.Generic.Dictionary<int, GUIStyle> estilosPanel =
+        new System.Collections.Generic.Dictionary<int, GUIStyle>();
+
     /// <summary>Panel de esquinas redondeadas (9-slice: las esquinas no se deforman al estirar).</summary>
     public static void Caja(Rect r, Color c, int radio = 10)
     {
         if (Event.current.type != EventType.Repaint) return;
-        GUIStyle s = new GUIStyle();
-        s.normal.background = GuardianIconos.Panel(c, radio);
-        s.border = new RectOffset(radio + 2, radio + 2, radio + 2, radio + 2);
+        radio = Mathf.Clamp(radio, 2, 32);
+        GUIStyle s;
+        if (!estilosPanel.TryGetValue(radio, out s) || s == null || s.normal.background == null)
+        {
+            s = new GUIStyle();
+            s.normal.background = GuardianIconos.Panel(radio);
+            s.border = new RectOffset(radio + 2, radio + 2, radio + 2, radio + 2);
+            estilosPanel[radio] = s;
+        }
+        Color antes = GUI.color;
+        GUI.color = antes * c;
         s.Draw(r, false, false, false, false);
+        GUI.color = antes;
     }
 
     /// <summary>

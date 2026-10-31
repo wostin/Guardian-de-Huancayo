@@ -203,7 +203,6 @@ public static class GuardianIconos
             t.name = nombre;
             t.filterMode = FilterMode.Bilinear;
             t.wrapMode = TextureWrapMode.Clamp;
-            t.hideFlags = HideFlags.DontSave;
             t.SetPixels(px);
             t.Apply(false);
             return t;
@@ -771,16 +770,20 @@ public static class GuardianIconos
 
     // ------------------------------------------------------------------ texturas de interfaz
 
-    /// <summary>Rectángulo redondeado de un solo color (paneles y botones de los módulos nuevos).</summary>
-    public static Texture2D Panel(Color c, int radioPx = 10)
+    /// <summary>
+    /// Rectángulo redondeado BLANCO (se tiñe con GUI.color al dibujarlo). Uno
+    /// por radio: así los paneles que cambian de color cada cuadro —la barra de
+    /// tiempo, por ejemplo— no crean una textura nueva en cada cuadro.
+    /// </summary>
+    public static Texture2D Panel(int radioPx = 10)
     {
-        string clave = "pan" + ((Color32)c).r + "_" + ((Color32)c).g + "_" + ((Color32)c).b + "_" + ((Color32)c).a + "_" + radioPx;
-        return Desde(clave, () =>
+        radioPx = Mathf.Clamp(radioPx, 2, 32);
+        return Desde("pan" + radioPx, () =>
         {
             int n = radioPx * 2 + 4;
             Lienzo l = new Lienzo(n);
             float r = (float)radioPx / n;
-            l.Caja(0.5f, 0.5f, 0.5f - 0.5f / n, 0.5f - 0.5f / n, r, c);
+            l.Caja(0.5f, 0.5f, 0.5f - 0.5f / n, 0.5f - 0.5f / n, r, Color.white);
             return l.Textura("Panel");
         });
     }
